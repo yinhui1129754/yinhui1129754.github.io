@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+    12.sessionStorage
+    保存数据 sessionStorage.setItem("key","val");
+    读取数据 sessionStorage.getItem("key","val");
+    删除数据 sessionStorage.removeItem("key");
+    删除所有数据 sessionStorage.clear();
+    查看键名 sessionStorage.key(下标)
+    13.localStorage
+    14.事件storage 储存，修改数据的时候出发在同一个域名下触发的事件
+
+    15.var se=openDatabase()打开数据库如果库存在则打开库
+    tx是事物对象
+    se.transaction(function(tx){
+    tx.executeSql("sql语句",[],function(tx,data){},function(tx,err){})
+    })
+    查询的时候要加一个rows
+    data.rows[下标]
+    data.rows.item(下标)
+    heml5不支持删除数据库
+    如果在创建表的时候表存在了 要加 if not exists 判断表是否已经创建了 不加的话会报错
+    16.离线缓存
+    要使用离线缓存必须在html文档中设置manifest="manifest.appcache"
+    在互联网上有些资源中也使用.manifest
+    第一行
+    cache manifest
+    #表示注释;
+    cache:
+    要缓存的文件路径
+    network:
+    表示那些资源必须从服务器下载
+    或者用*表示除了cache指定的资源外，其他都必须从互联网上下载
+    fallback:
+    如果目录找不到就会替换
+    第一个是请求的资源 第二个是替代的资源
+    chrome://appcache-internals/#
+        </node>

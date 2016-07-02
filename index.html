@@ -3,53 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <style type="text/css">
-        body{
-            margin:0;
-            padding: 0;
-        }
-        #zhu{
-            margin: auto;
-            width: 1000px;
-            height: 1400px;
-            background-image: url("images/572953eb666cc.png");
-            background-size: auto 100%;
-        }
-        #zhu>div{
+    <style>
+        p{
+            color: #444444;
+            font-size: 24px;
             font-family: "微软雅黑";
-            font-size: 30px;
-            color:white;
-            position: relative;
-            top: 1000px;
-            left: 200px;
-            width: 600px;
+            cursor: pointer;
         }
-        #zhu>a{
-            left: 200px;
-            font-family: "微软雅黑";
-            font-size: 30px;
-            margin: auto;
-            color:white;
-            position: relative;
-            top: 1050px;
-            text-decoration: none;
+        #zuo{
+            position: fixed;
+            top: 0;
+            right: 50px;
+        }
+        #dive{
             float: left;
-            width: 320px;
-            height: 70px;
-            line-height: 70px;
-            text-align: center;
-            background-color: #ffa42d;
-            border-radius: 5px;
+            margin-right: 2%;
+            color: #333333;
+            font-family: "微软雅黑";
+            font-size: 14px;
+        }
+        p:hover{
+            color: #999999;
+        }
+        #upPage{
+            position: fixed;
+            right: 190px;
+            top: 300px;
+            cursor: pointer;
+        }
+        #downPage{
+            position: fixed;
+            right: 90px;
+            top: 300px;
+            cursor: pointer;
+        }
+        #yeS{
+            position: fixed;
+            right: 50px;
+            font-size: 24px;
+            top: 350px;
         }
     </style>
 </head>
 <body>
-<div id="zhu">
-    <div>活动一:消费达到500元可获得积分500</div>
-    <div>活动二:消费达到1000元可获得积分1200</div>
-    <div>活动三:任意浏览本网页的用户均可抽奖一次</div>
-    <div>积分可以用来抽奖</div>
-    <a href="pagge/laohu.html">点击进入抽奖页面</a>
+<pre id="dive"></pre>
+<div id="zuo">
 </div>
+<span id="upPage" onclick="yehsu02(0)">上一页</span>
+<span id="downPage" onclick="yehsu02(1)">下一页</span>
+<div id="yeS"></div>
+<script type="text/javascript" charset="UTF-8">
+    var shuji=[
+        {
+        url:'leirong/location.xml',
+        name:"location的属性详解"
+        },
+        {
+        url:'leirong/canvas.xml',
+        name:"canvas技术详解"
+        },
+        {
+            url:'leirong/canvas02.xml',
+            name:"canvas02技术详解"
+        },
+        {
+            url:'leirong/离线缓存.xml',
+            name:"HTML5离线缓存"
+        },
+        {
+            url:'leirong/本地数据库.xml',
+            name:"本地数据库"
+        },
+        {
+            url:'leirong/最终样式.xml',
+            name:"获取最终样式"
+        },
+        {
+            url:'leirong/mysql常见命令.xml',
+            name:"mysql常见命令"
+        },
+        {
+            url:'leirong/cookies.xml',
+            name:"cookies读取操作"
+        },
+        {
+            url:'leirong/滚轮事件.xml',
+            name:"一些特殊事件"
+        }
+    ];
+    var ye=0;
+    var yeshu=Math.ceil(shuji.length/5)-1;
+    function yehsu02(a){
+        if(a==0){
+            if(ye==0){
+                alert("这是第一页")
+            }else{
+                ye--
+            }
+            changePage();
+        }else if(a==1){
+            if(ye==yeshu){
+                alert("这是最后页")
+            }else{
+                ye++
+            }
+            changePage();
+        }
+    }
+    function changePage(){
+        document.getElementById("zuo").innerHTML="";
+        for(var a=0+ye*5;a<5+ye*5;a++){
+            if(shuji[a]==undefined){
+
+            }else{
+                document.getElementById("zuo").innerHTML+= "<p onclick="+ "opene("+"'"+shuji[a].url+"'"+")"+">"+shuji[a].name+"</p>"
+            }
+        }
+        document.getElementById("yeS").innerHTML="当前第"+(ye+1)+"页/总共"+(yeshu+1)+"页"
+    }
+    changePage();
+    var xml;
+    if(window.XMLHttpRequest){
+        xml=new window.XMLHttpRequest()
+    }else if(window.ActiveXObject){
+        xml=new window.ActiveXObject("Microsoft.XMLHTTP");
+    }
+    function opene(asd){
+        console.log(asd);
+        xml.open("get",asd,false);
+        xml.send();
+        window.sr=xml.responseXML;
+        document.getElementById("dive").innerHTML=sr.getElementsByTagName("node")[0].innerHTML;
+    }
+</script>
 </body>
 </html>

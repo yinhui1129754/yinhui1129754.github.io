@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<node>
+    三个核心方法
+    但是我们学一下也没什么坏处，而且能和现在W3C力推的IndexedDB做比较，
+    看看为什么要废弃这种方案。Web SQL Database 规范中定义的三个核心方法：
+
+    openDatabase：这个方法使用现有数据库或新建数据库来创建数据库对象
+    transaction：这个方法允许我们根据情况控制事务提交或回滚
+    executeSql：这个方法用于执行SQL 查询
+
+    openDatabase
+    我们可以使用这样简单的一条语句，创建或打开一个本地的数据库对象
+
+    var db = openDatabase('testDB', '1.0', 'Test DB', 2 * 1024 * 1024);
+    openDatabase接收五个参数：
+
+    1.数据库名字
+    2.数据库版本号
+    3.显示名字
+    4.数据库保存数据的大小（以字节为单位 )
+    5.回调函数（非必须)
+
+    如果提供了回调函数，回调函数用以调用 changeVersion() 函数
+    ，不管给定什么样的版本号，回调函数将把数据库的版本号设置为空。
+    如果没有提供回调函数，则以给定的版本号创建数据库。
+
+    transaction
+
+    transaction方法用以处理事务，当一条语句执行失败的时候，
+    整个事务回滚。方法有三个参数
+
+    1.包含事务内容的一个方法
+    2.执行成功回调函数（可选）
+    3.执行失败回调函数（可选）
+
+    db.transaction(function (context) {
+    context.executeSql('CREATE TABLE IF NOT EXISTS testTable (id unique, name)');
+    context.executeSql('INSERT INTO testTable (id, name) VALUES (0, "Byron")');
+    context.executeSql('INSERT INTO testTable (id, name) VALUES (1, "Casper")');
+    context.executeSql('INSERT INTO testTable (id, name) VALUES (2, "Frank")');
+    });
+
+    这个例子中我们创建了一个table，并在表中插入三条数据，四条执行语句任何一条出现错误，整个事务都会回滚
+
+    executeSql
+    executeSql方法用以执行SQL语句，返回结果，方法有四个参数
+
+    1.查询字符串
+    2.用以替换查询字符串中问号的参数
+    3.执行成功回调函数（可选）
+    4.执行失败回调函数（可选）
+
+    在上面的例子中我们使用了插入语句，看个查询的例子
+    db.transaction(function (context) {
+    context.executeSql('SELECT * FROM testTable', [], function (context, results) {
+        var len = results.rows.length, i;
+        console.log('Got '+len+' rows.');
+        for (i = 0; i 《 len; i++){
+        console.log('id: '+results.rows.item(i).id);
+     console.log('name: '+results.rows.item(i).name);
+     }
+    });
+</node>
