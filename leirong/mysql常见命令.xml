@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+    1.什么是数据库
+    数据组织丶储存丶管理的仓库;
+    2.层次结构(单个父元素)，网状结构(多个父元素)，关系结构()
+    DB:database
+    RDB:关系数据库
+    DBMS:数据库管理系统；
+    RDBMS:关系数据库管理系统;
+    MYSQL关系数据库管理系统;SQL server家族 Oracle，db2，sybase，mysql；
+    table:表。(表是数据库的核心单元)
+    行，是所有记录的名称;(记录叫行)
+    列，是行的一个数据域，也就是实体的一个属性；
+    多行多列构成了表 多张表构成数据库；
+    主键:一行数据的唯一的区别;(id)
+    外键:在数据库设计时，从表中的外键需要与主表的主键进行关联；
+    4.对象模型;
+    5半结构化;
+    数据语言:sql;structured query language(结构化查询语言) 非过程式语言 (不能独立开发应用程序)
+    只能通过宿主语言来开发  如JAVA\PHP\C++等语言(在script中可以写sql语言)
+    6
+    DDL:数据定义语言;
+    DML:数据操作语言;
+    DQL:数据查询语言;
+
+    DCL:数据控制语言;
+    TPL:事物处理语言;
+    CCL:指针控制语言;
+    数据库表的关系
+    一对一(最少两张表)
+    一对多(最少两张表)
+    多对多(三张表)
+    等关系
+
+
+    1.数据库创建
+    --注释
+    CREATE DATABASE 名称
+    2.链接数据库
+    USE 94work
+    3.删除数据库
+    DROP DATABASE 名称
+    DROP TABLE 名称 (删除表)
+    4.命名
+    命名首字母只能是大小写的字母;后面可以跟上数字 字母 @ # 等等不能喝RDBMS中的命令语句同名
+    5.创建表
+
+    CREATE TABLE 表名 (字段名1 数据类型(长度) 约束,字段名2 数据类型(长度) 约束)
+    表名一般是首字母的开始 下划线;
+    库名:baijie
+    表名:b_syudent
+    列名:s_name
+    CREATE TABLE b_student(s_name CHAR(50) s_age INT)
+
+
+    sql数据类型
+    char固定长度
+    varchar不固定长度 实际长度+1 不输入数据是长度是1
+    text 大文本
+
+    备份表
+    CREATE TABLE class_bak SELECT*FORM class
+    复制表的内容从
+
+    约束表示实体的完整性
+    主键约束:非空 唯一性
+    唯一约束:不能重复 可以为NULL
+
+    PRIMARY KEY 定义主键约束
+    UNIQUE      定义唯一约束
+
+    域完整性
+    默认约束 非空约束 检查约束
+    default    NOT NULL  CHECK
+
+    在mysql 它总是分析check约束,但是忽略check约束;
+
+    引用完整性
+    CONSTRAINT FOREIGN KEY(外键行) REFERENCES 主表名字(主键约束行)
+    ENGINE=INNODB 创建索引模式
+
+    1.从表外键中插入的数据必须是主表中已经存在的数据
+    2.在删除主表主键列值的时候，必须删除从表外键的记录
+    3.如果要修改主键的内容必须先删除从表的值;
+    自动增长列 AUTO_INCREMENT;(必须是INT类型的数据才行)
+    在表单后面设置AUTO_INCREMENT=number 可以设置在那一排增长
+    自动增长列不受删除行的影响，只管增长
+
+    复制表都不会复制索引模式
+
+    添加字段
+    ALTER TABLE 名字
+    ADD COLUM(可省) 名字 数据类型()
+
+    DROP COLUM height
+
+    CHANGE 名字 改变的名字 数据类型() 约束 '女'
+
+    DML
+    数据的插入
+    insert into 表名 (要插入的字段列表名) values(值1，值2，值3，...)
+    自动增长列
+    默认列
+    单条数据的插入
+    多条数据的插入
+
+    1.单条数据的全字段插入
+    全字段数据添加 一般不设置字段增长列;
+
+    指定的数据列插入
+    如果表中的列 允许为null 则在插入数据的时候 ，可以不知道数据列
+    多条数据的插入
+    INSERT INTO 表名(修改的行) VALUES (),(),()只能在RDBMS
+    通过插入数据来插入多条数据的方式
+    INSERT INTO 表名 SELET *FORM 表名2 ;
+
+    UPDATE 修改更新数据
+
+    UPDATE 表单名字 SET 行=值 WHERE
+    如果没有加条件是对所有的行字段进行修改
+
+    DELETE FORM 删除表的数据结构
+    只删除域　
+    UPDATE设置 域为null就为删除
+
+    TRUNCATE 删除了不会复原
+    查询所有学生的信息
+    投影查询操作
+    select*from 表名
+    单个列
+    select 列名 from 表名
+    多个列
+    select 列名,列2 from 表名
+
+    别名
+    select 列 AS 别名,列2 '别名' from 表名
+
+    别名一般需要用引号给引起来,特别是名称中用空格分隔的情况
+
+    返回表中列的唯一的数据值
+    select distinct 列 from 表名;
+    显示所有的年龄段
+    limit 显示指定的行数据
+    limit 起始行的位置，行数
+    select *form 表名 limit 起始行 ，行数;
+
+    规律:起始行:(页-1)*行数;
+
+    select concat(行,'/',行2) from 表名  链接两个行
+
+
+    选择操作:
+    select*from 表名 where 条件
+
+    between number1 and number02 包括等于
+
+    表示集合 in     not in (在条件中判断)
+
+    select * from 表名 where 行名 in()
+
+    模糊查询 like 通配符(% _) _长度只有一个字符 %表示匹配0个或者任意个
+    select * from 表名 where 行名 like '_红%'
+    select * from 表名 where 行名 like '_德_'
+    对null的判断
+    is null     is not null
+    ifnull()
+    排序操作
+    order by 子句
+    select 行1,行2 from 表名 order by 行1 asc(升序)
+    desc(降序)
+    多字段的排序
+    select 行1,行2 from 表名 order by 行1 asc(升序),行2 desc(降序)
+
+    如何把汉字用拼音排序
+    函数convert(行 using 编码 gb2312 utf-8)
+
+    utf-8的编码 是不能按拼音排序的。
+
+    使用select来执行聚合函数
+    标准结构:select count(计数规范>) from 表名
+    *对所有的行进行计数统计 包括null 行
+    如果是行的名字 会对所有非null进行计数统计  前面有个all 已经省略了
+    有* all distinct
+
+    sum
+    标准结构:select sum(计数规范>) from 表名
+    只有all 和distinct
+    count 计数
+    avg
+    标准结构:select sum(计数规范>) from 表名
+    只有all 和distinct
+    all求平均的时候要排除空值 all会自己将null排除
+    ifnull(字段名,值)
+
+    MAX最大数
+    标准结构:select max(字段名) from 表名
+    MIN最小数
+    标准结构:select max(字段名) from 表名
+
+    分组语句 group by
+    select 列A，聚合函数(聚合函数规范) from 表名
+    where 过滤条件
+    group  by 列A...
+    having 在分组的条件中进行一个过滤
+    聚合函数做条件的时候是不能写在 where 后面
+    having
+
+    1.什么是子查询
+
+    查询里面的查询(如js里面的if镶嵌)
+
+    1.确定投影字段的列表及字段来源于那些表
+
+    select 返回单行单列的子查询往往都是相关子查询
+
+    from 的子查询返回的是多行多列
+
+    where 子查询
+
+    any(任何一个) all(所有的)
+
+
+    exists // not exists;
+    exists not exists不关心返回什么值
+    exists not exists 总跟一个子查询
+    一般用in 不用exists
+    尽量使用not exists 少用not in
+    exists丶not exists往往都要写成相关子查询
+
+    select 列1,列2 from 表一 inner join 表二 on 表1.列=表2.列(内连接)
+    inner 可以省略
+    select 列1,列2 from 表一 , 表二 where 表1.列=表2.列(内连接)
+
+    表连接 内连接 和 外链接 全连接(mysql不支持全连接)
+    外链接
+    a:(左外连接)
+    select * from 表1 left outer join 表2 on 表1.字段=表2.字段
+    b:(右外链接)
+    select * from 表1 right outer join 表2 on 表1.字段=表2.字段
+    内连接:
+
+    全(外)连接
+    select * from 表1 full outer join 表2 on 表1.字段=表2.字段
+    (纵向链接)
+
+    自连接
+
+
+    联合 纵向链接
+    union
+
+    select * from 表1
+    union
+    select * from 表2
+
+    会排出重复数据
+    要求 后面联合的表投影的数据类型应该相识或者相同 列数还是一样
+
+    union all 不排除重复
+
+    能用表连接 决不用子查询
+
+    出现同名字段的时候要设置别名
+    多张表的链接
+    select * from 表1 join 表2 join 表3.....
+</node>

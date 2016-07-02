@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+    要改变的节点.style.样式=""这是设置的是行间样式
+    alert(div1.style.backgroundColor)获取的也是行间样式
+    marginleft 获取的时候不会获取单位
+    currentStyle   获取最终样式
+    document.defaultView.getComputedStyle(元素).width(兼容)
+    修改外部样式表
+    var ki=document.styleSheets[0]获取样式表
+    var k1=ki.rules[0]获取第1个规则
+    kl.style.backgroundColor="white"修改外部样式表(要注意下标)
+    连续修改css的样式.cssText="属性"会覆盖
+</node>
